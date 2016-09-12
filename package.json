@@ -1,0 +1,19 @@
+{
+  "name": "mocha-elk-reporter",
+  "version": "0.0.1",
+  "description": "Reporter for pushing mocha test results data to ELK",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha ./test",
+    "prepublish": "npm run test"
+  },
+  "author": "Manoj Pahuja",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.0.0-rc.2",
+    "chai": "^3.2.0",
+    "mocha": "^2.3.3",
+    "supertest": "^1.1.0",
+    "elasticsearch": "latest"
+  }
+}

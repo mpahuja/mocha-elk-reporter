@@ -1,0 +1,23 @@
+# Runtime data
+/logs
+*.log
+pids
+*.pid
+*.seed
+.lock-wscript
+
+# Build artifacts
+/build
+
+# Dependencies
+node_modules
+
+# OS cruft
+.DS_Store
+
+# Editor artifacts
+.idea
+tags
+*.iml
+
+/*.log*
