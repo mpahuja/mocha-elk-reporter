@@ -13,8 +13,8 @@ sampleData.sampleResults = {
   "tests": [
     {
       "status": "Failed",
-      "title": "@tut, @failed-test: Failed Test data from reporter",
-      "fullTitle": "Unit Test - @tut: Failed Test data from reporter",
+      "title": "[uuid:failed-test-00001] Failed Test data from reporter",
+      "fullTitle": "Unit Test - [uuid:failed-test-00001] Failed Test data from reporter",
       "duration": 8673,
       "err": {
         "stack": "Sample Failed stack",
@@ -26,8 +26,8 @@ sampleData.sampleResults = {
     },
     {
       "status": "passed",
-      "title": "@regression, @passed-test: Passed Test data from reporter",
-      "fullTitle": "Unit Test - @regression: Passed Test data from reporter",
+      "title": "[uuid:passed-test-00001] Passed Test data from reporter",
+      "fullTitle": "Unit Test - [uuid:passed-test-00001] Passed Test data from reporter",
       "duration": 8673,
       "err": {},
       "platform": "chromeEmulator",
@@ -39,8 +39,8 @@ sampleData.sampleResults = {
   "failures": [
     {
       "status": "Failed",
-      "title": "@tut, @failed-test: Failed Test data from reporter",
-      "fullTitle": "Unit Test - @tut: Failed Test data from reporter",
+      "title": "[uuid:failed-test-00001] Failed Test data from reporter",
+      "fullTitle": "Unit Test - [uuid:failed-test-00001] Failed Test data from reporter",
       "duration": 8673,
       "err": {
         "stack": "Sample Failed stack",
@@ -54,8 +54,8 @@ sampleData.sampleResults = {
   "passes": [
     {
       "status": "passed",
-      "title": "@regression, @passed-test: Passed Test data from reporter",
-      "fullTitle": "Unit Test - @regression: Passed Test data from reporter",
+      "title": "[uuid:passsed-test-00001] Passed Test data from reporter",
+      "fullTitle": "Unit Test - [uuid:passed-test-00001] Passed Test data from reporter",
       "duration": 8673,
       "err": {},
       "platform": "chromeEmulator",
