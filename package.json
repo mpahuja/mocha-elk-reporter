@@ -4,8 +4,7 @@
   "description": "Reporter for pushing mocha test results data to ELK",
   "main": "index.js",
   "scripts": {
-    "test": "mocha ./test",
-    "prepublish": "npm run test"
+    "test": "mocha ./test"
   },
   "author": "Manoj Pahuja",
   "license": "ISC",

@@ -1,11 +1,9 @@
 module.exports = {
-  applicationName: "websitebuilder.vnext.ui_tests",
-  elasticSearchHost: "pcdata.int.godaddy.com:9200",
-  elasticSearchIndex: "vnext.ui_tests",
+  applicationName: "your application name",
+  elasticSearchHost: "your elastic search host:9200",
+  elasticSearchIndex: "your index name",
   extraParams: {
-    gridNode: process.env.GRID_NODE,
-    shopper: process.env.shopperId,
-    allTags: process.env.TEST_TAGS,
+    // Any Additional params you want to set
     locale: process.env.LOCALE || 'en-US'
   }
 };
