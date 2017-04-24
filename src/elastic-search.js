@@ -6,6 +6,7 @@ var checkForRequiredParams = require('./config-utility').checkForRequiredParams;
 var getExtraParams = require('./config-utility').getExtraParams;
 var HighSeverityError = require('./high-severity-error');
 
+
 module.exports = function sendTestResults(testResultsLog, done) {
 
   try {
@@ -17,6 +18,8 @@ module.exports = function sendTestResults(testResultsLog, done) {
       throw new HighSeverityError("All Required Params not present in repoConfig file. The required params are: "
         + defaultConfig.requiredParams.join(", "));
     }
+
+    var currentLogLevel = (repoConfig.elasticSearchLogLevel) ? repoConfig.elasticSearchLogLevel : 'error';
 
     var passedTestData = testResultsLog.passes;
     var passedTestDataSize = Object.keys(passedTestData).length;
@@ -56,7 +59,7 @@ module.exports = function sendTestResults(testResultsLog, done) {
 
     var esClient = elasticsearch.Client({
       host: repoConfig.elasticSearchHost,
-      log: 'trace',
+      log: currentLogLevel,
       requestTimeout: 1000
     });
 
