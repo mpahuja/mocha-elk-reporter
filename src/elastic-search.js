@@ -64,7 +64,7 @@ module.exports = function sendTestResults(testResultsLog, done) {
     });
 
     async.each(resultsArray, function (data, callback) {
-      esClient.create({
+      esClient.index({
         index: repoConfig.elasticSearchIndex,
         type: 'testLogs',
         body: data

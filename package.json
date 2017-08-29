@@ -12,6 +12,6 @@
     "async": "^2.0.0-rc.2",
     "chai": "^3.2.0",
     "mocha": "^2.3.3",
-    "elasticsearch": "11.0.1"
+    "elasticsearch": "13.3.1"
   }
 }
