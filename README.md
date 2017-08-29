@@ -1,3 +1,8 @@
+
+```
+Please use mocha-elk-reporter@0.2.0 for ES 5.4 or earlier. Use mocha-elk-reporter@0.3.0 for ES 5.5 and above
+```
+
 # mocha-elk-reporter
 A simple custom mocha reporter that sends Mocha Test results to Elastic search.
 
@@ -31,7 +36,9 @@ module.exports = {
 Mocha by default supports different kind of reporters like spec, json, etc.
 You can use this reporter similar to any other reporter by passing in additional command line arguments when running the tests using mocha. i.e.
 
-'--reporter mocha-elk-reporter'
+```
+--reporter mocha-elk-reporter
+```
 
 After you execute a test with additional parameters, you should now see data coming into your instance of ELK.
 
