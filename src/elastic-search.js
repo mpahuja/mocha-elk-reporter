@@ -33,6 +33,7 @@ module.exports = function sendTestResults(testResultsLog, done) {
         "content":
         Object.assign({ status: "passed",
           title: passedTestData[arrayLength].title,
+          appName: passedTestData[arrayLength].appName,             
           fullTitle: passedTestData[arrayLength].fullTitle,
           duration: passedTestData[arrayLength].duration / 1000,
           err: passedTestData[arrayLength].err,
@@ -49,6 +50,7 @@ module.exports = function sendTestResults(testResultsLog, done) {
         "content":
           Object.assign({ status: "failed",
             title: failedTestData[arrayLength].title,
+            appName: failedTestData[arrayLength].appName,
             fullTitle: failedTestData[arrayLength].fullTitle,
             duration: failedTestData[arrayLength].duration / 1000,
             err: failedTestData[arrayLength].err,
