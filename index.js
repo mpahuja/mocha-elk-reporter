@@ -76,10 +76,10 @@ function ELKReporter(runner) {
 function clean(test) {
   return {
     title: test.title,
-    appName: test.appName,
     fullTitle: test.fullTitle(),
     duration: test.duration,
-    err: errorJSON(test.err || {})
+    err: errorJSON(test.err || {}),
+    context: test.context
   };
 }
 

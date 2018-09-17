@@ -27,35 +27,49 @@ module.exports = function sendTestResults(testResultsLog, done) {
     var uuidRegex = /\[(uuid:.*?)\]/g;
     var timestamp = new Date().getTime();
     for (var arrayLength = 0; arrayLength < passedTestDataSize; arrayLength++ ) {
+
+      let contextValues; 
+      if(passedTestData[arrayLength].context !== undefined){
+        if(passedTestData[arrayLength].context.value !== undefined){
+          contextValues = passedTestData[arrayLength].context.value; 
+        }
+       }
+
       resultsArray.push({
         "application_name": repoConfig.applicationName,
         "et": timestamp,
         "content":
         Object.assign({ status: "passed",
-          title: passedTestData[arrayLength].title,
-          appName: passedTestData[arrayLength].appName,             
+          title: passedTestData[arrayLength].title,             
           fullTitle: passedTestData[arrayLength].fullTitle,
           duration: passedTestData[arrayLength].duration / 1000,
           err: passedTestData[arrayLength].err,
           uuid: passedTestData[arrayLength].title.match(uuidRegex)
-        }, extraParams)
+        }, extraParams,contextValues)
       });
     }
     var failedTestData = testResultsLog.failures;
     var failedTestDataSize = Object.keys(failedTestData).length;
     for (var arrayLength = 0; arrayLength < failedTestDataSize; arrayLength++ ) {
+
+      let contextValues; 
+      if(failedTestData[arrayLength].context !== undefined){ 
+        if(failedTestData[arrayLength].context.value !== undefined){
+          contextValues = failedTestData[arrayLength].context.value; 
+        }
+      }
+
       resultsArray.push({
         "application_name": repoConfig.applicationName,
         "et": timestamp,
         "content":
           Object.assign({ status: "failed",
             title: failedTestData[arrayLength].title,
-            appName: failedTestData[arrayLength].appName,
             fullTitle: failedTestData[arrayLength].fullTitle,
             duration: failedTestData[arrayLength].duration / 1000,
             err: failedTestData[arrayLength].err,
             uuid: failedTestData[arrayLength].title.match(uuidRegex)
-        }, extraParams)
+        }, extraParams,contextValues)
       });
     }
 

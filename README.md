@@ -61,3 +61,21 @@ Now you can run multiple reporters while running mocha tests uding this command
 'multi="spec=- mocha-elk-reporter=-" mocha --reporter mocha-multi'
 ```
 
+## addContext Usage
+
+If you are using mocha-multi-reporters with mochawesome and mochawesome's addContext functionality, any key-value pairs in 'value' will automatically get sent. For example here you would have myKey sent to ELK
+```
+addContext(this, {value: { myKey: "myValue" }}); 
+```
+
+You can also use addContext standalone without mochawesome using an internal version. you call it like this: 
+```
+const addContextMER = require('mocha-elk-reporter/addContext');
+```
+Then in your actual test use it with this format:
+```
+    it('it-test1', function() {
+      assert.equal([1,2,3].indexOf(4), -1);
+      addContextMER(this, {value: { myKey: "myValue" }});
+    });
+```
