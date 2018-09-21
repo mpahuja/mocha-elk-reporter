@@ -14,7 +14,7 @@ module.exports = function sendTestResults(testResultsLog, done) {
     var repoConfig = fetchParams();
     var extraParams = getExtraParams(repoConfig);
 
-    if(!checkForRequiredParams(repoConfig)) {
+    if (!checkForRequiredParams(repoConfig)) {
       throw new HighSeverityError("All Required Params not present in repoConfig file. The required params are: "
         + defaultConfig.requiredParams.join(", "));
     }
@@ -26,36 +26,12 @@ module.exports = function sendTestResults(testResultsLog, done) {
     var resultsArray = [];
     var uuidRegex = /\[(uuid:.*?)\]/g;
     var timestamp = new Date().getTime();
-    for (var arrayLength = 0; arrayLength < passedTestDataSize; arrayLength++ ) {
+    for (var arrayLength = 0; arrayLength < passedTestDataSize; arrayLength++) {
 
-      let contextValues; 
-      if(passedTestData[arrayLength].context !== undefined){
-        if(passedTestData[arrayLength].context.value !== undefined){
-          contextValues = passedTestData[arrayLength].context.value; 
-        }
-       }
-
-      resultsArray.push({
-        "application_name": repoConfig.applicationName,
-        "et": timestamp,
-        "content":
-        Object.assign({ status: "passed",
-          title: passedTestData[arrayLength].title,             
-          fullTitle: passedTestData[arrayLength].fullTitle,
-          duration: passedTestData[arrayLength].duration / 1000,
-          err: passedTestData[arrayLength].err,
-          uuid: passedTestData[arrayLength].title.match(uuidRegex)
-        }, extraParams,contextValues)
-      });
-    }
-    var failedTestData = testResultsLog.failures;
-    var failedTestDataSize = Object.keys(failedTestData).length;
-    for (var arrayLength = 0; arrayLength < failedTestDataSize; arrayLength++ ) {
-
-      let contextValues; 
-      if(failedTestData[arrayLength].context !== undefined){ 
-        if(failedTestData[arrayLength].context.value !== undefined){
-          contextValues = failedTestData[arrayLength].context.value; 
+      let contextValues;
+      if (passedTestData[arrayLength].context !== undefined) {
+        if (passedTestData[arrayLength].context.value !== undefined) {
+          contextValues = passedTestData[arrayLength].context.value;
         }
       }
 
@@ -63,13 +39,39 @@ module.exports = function sendTestResults(testResultsLog, done) {
         "application_name": repoConfig.applicationName,
         "et": timestamp,
         "content":
-          Object.assign({ status: "failed",
+          Object.assign({
+            status: "passed",
+            title: passedTestData[arrayLength].title,
+            fullTitle: passedTestData[arrayLength].fullTitle,
+            duration: passedTestData[arrayLength].duration / 1000,
+            err: passedTestData[arrayLength].err,
+            uuid: passedTestData[arrayLength].title.match(uuidRegex)
+          }, extraParams, contextValues)
+      });
+    }
+    var failedTestData = testResultsLog.failures;
+    var failedTestDataSize = Object.keys(failedTestData).length;
+    for (var arrayLength = 0; arrayLength < failedTestDataSize; arrayLength++) {
+
+      let contextValues;
+      if (failedTestData[arrayLength].context !== undefined) {
+        if (failedTestData[arrayLength].context.value !== undefined) {
+          contextValues = failedTestData[arrayLength].context.value;
+        }
+      }
+
+      resultsArray.push({
+        "application_name": repoConfig.applicationName,
+        "et": timestamp,
+        "content":
+          Object.assign({
+            status: "failed",
             title: failedTestData[arrayLength].title,
             fullTitle: failedTestData[arrayLength].fullTitle,
             duration: failedTestData[arrayLength].duration / 1000,
             err: failedTestData[arrayLength].err,
             uuid: failedTestData[arrayLength].title.match(uuidRegex)
-        }, extraParams,contextValues)
+          }, extraParams, contextValues)
       });
     }
 
@@ -84,15 +86,15 @@ module.exports = function sendTestResults(testResultsLog, done) {
         index: repoConfig.elasticSearchIndex,
         type: 'testLogs',
         body: data
-      }, function(err) {
-        if(err) {
+      }, function (err) {
+        if (err) {
           callback(err);
         } else {
           callback();
         }
       });
     }, function (err) {
-      if(err) {
+      if (err) {
         done(err);
       } else {
         done();
