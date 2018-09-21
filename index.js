@@ -78,7 +78,8 @@ function clean(test) {
     title: test.title,
     fullTitle: test.fullTitle(),
     duration: test.duration,
-    err: errorJSON(test.err || {})
+    err: errorJSON(test.err || {}),
+    context: test.context
   };
 }
 
