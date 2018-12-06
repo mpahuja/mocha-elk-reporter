@@ -7,7 +7,7 @@
     "test": "mocha ./test"
   },
   "author": "Manoj Pahuja",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "async": "^2.0.0-rc.2",
     "chai": "^3.2.0",
