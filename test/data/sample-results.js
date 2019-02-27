@@ -2,9 +2,9 @@ var sampleData = {};
 sampleData.sampleResults = {
   "stats": {
     "suites": 1,
-    "tests": 2,
+    "tests": 3,
     "passes": 1,
-    "pending": 0,
+    "pending": 1,
     "failures": 1,
     "start": "2015-10-23T06:09:40.413Z",
     "end": "2015-10-23T06:09:56.049Z",
@@ -25,6 +25,16 @@ sampleData.sampleResults = {
       "server": "jenkins"
     },
     {
+      "status": "pending",
+      "title": "[uuid:pending-test-00001] Pending Test data from reporter",
+      "fullTitle": "Unit Test - [uuid:pending-test-00001] Pending Test data from reporter",
+      "duration": 8673,
+      "err": {},
+      "platform": "chromeEmulator",
+      "browser": "chrome",
+      "server": "jenkins"
+    },
+    {
       "status": "passed",
       "title": "[uuid:passed-test-00001] Passed Test data from reporter",
       "fullTitle": "Unit Test - [uuid:passed-test-00001] Passed Test data from reporter",
@@ -35,7 +45,20 @@ sampleData.sampleResults = {
       "server": "jenkins"
     }
   ],
-  "pending": [],
+  "pending": [
+     {
+      "status": "pending",
+      "title": "[uuid:pending-test-00001] Pending Test data from reporter",
+      "fullTitle": "Unit Test - [uuid:pending-test-00001] Pending Test data from reporter",
+      "duration": 8673,
+      "err": {
+        "stack": "Sample Failed stack",
+        "message": "Sample failed message"
+      },
+      "platform": "chromeEmulator",
+      "browser": "chrome",
+      "server": "jenkins"
+    }  ],
   "failures": [
     {
       "status": "Failed",
