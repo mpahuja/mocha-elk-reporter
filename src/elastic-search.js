@@ -75,6 +75,32 @@ module.exports = function sendTestResults(testResultsLog, done) {
       });
     }
 
+    var pendingTestData = testResultsLog.pending;
+    var pendingTestDataSize = Object.keys(pendingTestData).length;
+    for (var arrayLength = 0; arrayLength < pendingTestDataSize; arrayLength++) {
+
+      let contextValues;
+      if (pendingTestData[arrayLength].context !== undefined) {
+        if (pendingTestData[arrayLength].context.value !== undefined) {
+          contextValues = pendingTestData[arrayLength].context.value;
+        }
+      }
+
+      resultsArray.push({
+        "application_name": repoConfig.applicationName,
+        "et": timestamp,
+        "content":
+          Object.assign({
+            status: "pending",
+            title: pendingTestData[arrayLength].title,
+            fullTitle: pendingTestData[arrayLength].fullTitle,
+            duration: pendingTestData[arrayLength].duration / 1000,
+            err: pendingTestData[arrayLength].err,
+            uuid: pendingTestData[arrayLength].title.match(uuidRegex)
+          }, extraParams, contextValues)
+      });
+    }
+
     var esClient = elasticsearch.Client({
       host: repoConfig.elasticSearchHost,
       log: currentLogLevel,
