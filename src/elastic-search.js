@@ -20,6 +20,7 @@ module.exports = function sendTestResults(testResultsLog, done) {
     }
 
     var currentLogLevel = (repoConfig.elasticSearchLogLevel) ? repoConfig.elasticSearchLogLevel : 'error';
+    var currentTimeout = (repoConfig.elasticSearchTimeout) ? repoConfig.elasticSearchTimeout : '10000';
 
     var passedTestData = testResultsLog.passes;
     var passedTestDataSize = Object.keys(passedTestData).length;
@@ -104,7 +105,7 @@ module.exports = function sendTestResults(testResultsLog, done) {
     var esClient = elasticsearch.Client({
       host: repoConfig.elasticSearchHost,
       log: currentLogLevel,
-      requestTimeout: 1000
+      requestTimeout: currentTimeout
     });
 
     async.each(resultsArray, function (data, callback) {
