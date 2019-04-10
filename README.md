@@ -1,8 +1,4 @@
 
-```
-Please use mocha-elk-reporter@0.2.0 for ES 5.4 or earlier. Use mocha-elk-reporter@0.3.0 for ES 5.5 and above
-```
-
 # mocha-elk-reporter
 A simple custom mocha reporter that sends Mocha Test results to Elastic search.
 
