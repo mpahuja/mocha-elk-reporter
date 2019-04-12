@@ -21,7 +21,9 @@ config.extraParams = {
   buildVersion: process.env.BUILD_VERSION,
   workflow: process.env.WORKFLOW,
   workflowStep: process.env.WORKFLOW_STEP,
-  environment: process.env.TEST_ENV || 'test'
+  environment: process.env.TEST_ENV || 'test',
+  elasticsearchUsername: process.env.ELASTICSEARCH_USERNAME,
+  elasticsearchPassword: process.env.ELASTICSEARCH_PASSWORD
 };
 
 module.exports = config;

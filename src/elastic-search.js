@@ -102,8 +102,15 @@ module.exports = function sendTestResults(testResultsLog, done) {
       });
     }
 
+    var auth = ""
+    if (!!extraParams.elasticsearchPassword === true || !!extraParams.elasticsearchPassword === true) {
+      auth = `${extraParams.elasticsearchUsername}:${extraParams.elasticsearchPassword}@`
+      // Override any username:password in the elasticSearchHost param
+      var hostname = repoConfig.elasticSearchHost.split("@")
+      hostname = [hostname.length-1]
+    }
     var esClient = elasticsearch.Client({
-      host: repoConfig.elasticSearchHost,
+      host: `${auth}${hostname}`,
       log: currentLogLevel,
       requestTimeout: currentTimeout
     });
