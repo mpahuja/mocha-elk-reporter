@@ -26,7 +26,7 @@ module.exports = function sendTestResults(testResultsLog, done) {
     var passedTestDataSize = Object.keys(passedTestData).length;
     var resultsArray = [];
     var uuidRegex = /\[(uuid:.*?)\]/g;
-    var timestamp = new Date().getTime();
+    var timestamp = new Date().toISOString();
     for (var arrayLength = 0; arrayLength < passedTestDataSize; arrayLength++) {
 
       let contextValues;
