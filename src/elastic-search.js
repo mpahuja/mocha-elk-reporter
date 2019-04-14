@@ -26,7 +26,7 @@ module.exports = function sendTestResults(testResultsLog, done) {
     var passedTestDataSize = Object.keys(passedTestData).length;
     var resultsArray = [];
     var uuidRegex = /\[(uuid:.*?)\]/g;
-    var timestamp = new Date().getTime();
+    var timestamp = new Date().toISOString();
     for (var arrayLength = 0; arrayLength < passedTestDataSize; arrayLength++) {
 
       let contextValues;
@@ -102,8 +102,14 @@ module.exports = function sendTestResults(testResultsLog, done) {
       });
     }
 
+    var hostname = repoConfig.elasticSearchHost
+    if (!!extraParams.elasticsearchPassword === true || !!extraParams.elasticsearchPassword === true) {
+      auth = `${extraParams.elasticsearchUsername}:${extraParams.elasticsearchPassword}@`
+      // Override any username:password in the elasticSearchHost param
+      hostname = `${auth}${hostname}`
+    }
     var esClient = elasticsearch.Client({
-      host: repoConfig.elasticSearchHost,
+      host: hostname,
       log: currentLogLevel,
       requestTimeout: currentTimeout
     });
