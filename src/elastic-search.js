@@ -15,10 +15,8 @@ module.exports = function sendTestResults(testResultsLog, done) {
     var extraParams = getExtraParams(repoConfig);
     var elasticsearchUsername = extraParams.elasticsearchUsername
     var elasticsearchPassword = extraParams.elasticsearchPassword
-    var elasticsearchCloudId = extraParams.elasticsearchCloudId
     delete extraParams.elasticsearchUsername
     delete extraParams.elasticsearchPassword
-    delete extraParams.elasticsearchCloudId
 
     if (!checkForRequiredParams(repoConfig)) {
       throw new HighSeverityError("All Required Params not present in repoConfig file. The required params are: "
@@ -115,21 +113,11 @@ module.exports = function sendTestResults(testResultsLog, done) {
       hostname = `${auth}${hostname}`
     }
 
-    if (elasticsearchCloudId) {
-      var esClient = elasticsearch.Client({
-        cloud: {
-          id: elasticsearchCloudId,
-          username: elasticsearchUsername,
-          password: elasticsearchPassword
-        }
-      })
-    } else {
-      var esClient = elasticsearch.Client({
-        host: hostname,
-        log: currentLogLevel,
-        requestTimeout: currentTimeout
-      });
-    }
+    var esClient = elasticsearch.Client({
+      host: hostname,
+      log: currentLogLevel,
+      requestTimeout: currentTimeout
+    });
 
     async.each(resultsArray, function (data, callback) {
       esClient.index({

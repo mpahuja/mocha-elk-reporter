@@ -23,8 +23,7 @@ config.extraParams = {
   workflowStep: process.env.WORKFLOW_STEP,
   environment: process.env.TEST_ENV || 'test',
   elasticsearchUsername: process.env.ELASTICSEARCH_USERNAME,
-  elasticsearchPassword: process.env.ELASTICSEARCH_PASSWORD,
-  elasticsearchCloudId: process.env.ELASTICSEARCH_CLOUD_ID
+  elasticsearchPassword: process.env.ELASTICSEARCH_PASSWORD
 };
 
 module.exports = config;
