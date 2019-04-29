@@ -1,7 +1,7 @@
 module.exports = {
   applicationName: "your application name",
-  elasticSearchHost: "your elastic search host:9200",
-  elasticSearchIndex: "your index name",
+  elasticSearchHost: "localhost:9200",
+  elasticSearchIndex: "your-index-name",
   elasticSearchLogLevel: "trace",
   extraParams: {
     // Any Additional params you want to set
