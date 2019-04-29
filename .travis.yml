@@ -19,4 +19,5 @@ script:
     -v "$TRAVIS_BUILD_DIR":/tmp
     --net mynet
     node
+  - docker exec -it node npm ci --prefix /tmp
   - docker exec -it node npm test --prefix /tmp
