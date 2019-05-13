@@ -13,6 +13,10 @@ module.exports = function sendTestResults(testResultsLog, done) {
 
     var repoConfig = fetchParams();
     var extraParams = getExtraParams(repoConfig);
+    var elasticsearchUsername = extraParams.elasticsearchUsername
+    var elasticsearchPassword = extraParams.elasticsearchPassword
+    delete extraParams.elasticsearchUsername
+    delete extraParams.elasticsearchPassword
 
     if (!checkForRequiredParams(repoConfig)) {
       throw new HighSeverityError("All Required Params not present in repoConfig file. The required params are: "
@@ -103,11 +107,12 @@ module.exports = function sendTestResults(testResultsLog, done) {
     }
 
     var hostname = repoConfig.elasticSearchHost
-    if (!!extraParams.elasticsearchPassword === true || !!extraParams.elasticsearchPassword === true) {
-      auth = `${extraParams.elasticsearchUsername}:${extraParams.elasticsearchPassword}@`
+    if (!!elasticsearchUsername === true || !!elasticsearchPassword === true) {
+      auth = `${elasticsearchUsername}:${elasticsearchPassword}@`
       // Override any username:password in the elasticSearchHost param
       hostname = `${auth}${hostname}`
     }
+
     var esClient = elasticsearch.Client({
       host: hostname,
       log: currentLogLevel,
