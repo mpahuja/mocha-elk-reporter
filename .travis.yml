@@ -1,24 +1,23 @@
-language: node_js
-# services:
-#   - docker
+services:
+  - docker
 
-# before_install:
-#   - docker pull node
-#   - docker pull sebp/elk
+before_install:
+  - docker pull node
+  - docker pull sebp/elk
 
 
-# script:
-#   - docker network create mynet
-#   - docker run -d -p 5601:5601 -p 9200:9200 -p 5044:5044 -it --name elk --net mynet sebp/elk
-#   - sleep 60
-#   - docker run
-#     --entrypoint "/bin/sh"
-#     -it
-#     -d
-#     -P
-#     --name node
-#     -v "$TRAVIS_BUILD_DIR":/tmp
-#     --net mynet
-#     node
-#   - docker exec -it node npm ci --prefix /tmp
-#   - docker exec -it node npm test --prefix /tmp
+script:
+  - docker network create mynet
+  - docker run -d -p 5601:5601 -p 9200:9200 -p 5044:5044 -it --name elk --net mynet sebp/elk
+  - sleep 60
+  - docker run
+    --entrypoint "/bin/sh"
+    -it
+    -d
+    -P
+    --name node
+    -v "$TRAVIS_BUILD_DIR":/tmp
+    --net mynet
+    node
+  - docker exec -it node npm ci --prefix /tmp
+  - docker exec -it node npm test --prefix /tmp
