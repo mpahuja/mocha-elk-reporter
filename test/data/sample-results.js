@@ -28,7 +28,7 @@ sampleData.sampleResults = {
       "status": "pending",
       "title": "[uuid:pending-test-00001] Pending Test data from reporter",
       "fullTitle": "Unit Test - [uuid:pending-test-00001] Pending Test data from reporter",
-      "duration": 8673,
+      "duration": 0,
       "err": {},
       "platform": "chromeEmulator",
       "browser": "chrome",
