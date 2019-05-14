@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/mpahuja/mocha-elk-reporter.svg?branch=master)](https://travis-ci.com/mpahuja/mocha-elk-reporter)
 
 # mocha-elk-reporter
 A simple custom mocha reporter that sends Mocha Test results to Elastic search.
