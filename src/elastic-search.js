@@ -106,38 +106,52 @@ module.exports = function sendTestResults(testResultsLog, done) {
       });
     }
 
-    var hostname = repoConfig.elasticSearchHost
-    if (!!elasticsearchUsername === true || !!elasticsearchPassword === true) {
-      auth = `${elasticsearchUsername}:${elasticsearchPassword}@`
-      // Override any username:password in the elasticSearchHost param
-      hostname = `${auth}${hostname}`
+
+    var hosts = [];
+    const elasticHost = repoConfig.elasticSearchHost;
+
+    if (typeof elasticHost === 'string') {
+      hosts.push(elasticHost)
+    } else
+    {
+      hosts = elasticHost
     }
 
-    var esClient = elasticsearch.Client({
-      host: hostname,
-      log: currentLogLevel,
-      requestTimeout: currentTimeout
-    });
+    for (var hostLength = 0; hostLength < hosts.length; hostLength++) {
+      var hostname = hosts[hostLength];
 
-    async.each(resultsArray, function (data, callback) {
-      esClient.index({
-        index: repoConfig.elasticSearchIndex,
-        type: 'testLogs',
-        body: data
+      if (!!elasticsearchUsername === true || !!elasticsearchPassword === true) {
+        auth = `${elasticsearchUsername}:${elasticsearchPassword}@`
+        // Override any username:password in the elasticSearchHost param
+        hostname = `${auth}${hostname}`
+      }
+
+      var esClient = elasticsearch.Client({
+        host: hostname,
+        log: currentLogLevel,
+        requestTimeout: currentTimeout
+      });
+
+      async.each(resultsArray, function (data, callback) {
+        esClient.index({
+          index: repoConfig.elasticSearchIndex,
+          type: 'testLogs',
+          body: data
+        }, function (err) {
+          if (err) {
+            callback(err);
+          } else {
+            callback();
+          }
+        });
       }, function (err) {
         if (err) {
-          callback(err);
+          done(err);
         } else {
-          callback();
+          done();
         }
       });
-    }, function (err) {
-      if (err) {
-        done(err);
-      } else {
-        done();
-      }
-    });
+    }
   } catch (e) {
     done(e);
   }
