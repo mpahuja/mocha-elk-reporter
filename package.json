@@ -10,9 +10,13 @@
   "license": "MIT",
   "dependencies": {
     "async": "^3.0.1-0",
-    "chai": "^3.2.0",
     "elasticsearch": "^16.0.0",
-    "mocha": "^5.2.0",
-    "mochawesome": "^3.0.3"
+    "mochawesome": "^5.0.0"
+  },
+  "peerDependencies": {
+    "mocha": ">=5.0.0 <8.0.0"
+  },
+  "devDependencies": {
+    "mocha": "^7.1.1"
   }
 }
