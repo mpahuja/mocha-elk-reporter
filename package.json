@@ -14,9 +14,9 @@
     "mochawesome": "^5.0.0"
   },
   "peerDependencies": {
-    "mocha": ">=5.0.0 <8.0.0"
+    "mocha": ">=5.0.0 <9.0.0"
   },
   "devDependencies": {
-    "mocha": "^7.1.1"
+    "mocha": "^8.1.2"
   }
 }
