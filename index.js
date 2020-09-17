@@ -42,7 +42,7 @@ function ELKReporter(runner) {
 
   runner.on('end', function() {
       /*
-      * When Cypress passes, it provides a test instance to add context using mochawesome/addContext.
+      * When Cypress test passes, it provides a test instance to add context using mochawesome/addContext.
       * But when Cypress test fails, it does not provide test instance to add context.
       * However it provides test instance when that specific test finishes.
       * So to add context on test failure, replace test objects in 'failures' array with its equivalent object from 'tests' array.
