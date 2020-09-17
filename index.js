@@ -44,7 +44,14 @@ function ELKReporter(runner) {
     // Add context body from test in tests to failures
     if (failures.length) {
       let failuresToIndex = new Map();
-      
+
+      /*
+      * Map failed test to its index in failures e.g. failuresToIndex will look like this 
+      * { 
+      *  '[uuid:cy-template-00002], should do first thing' => 2 
+      *  '[uuid:cy-template-00005], should do second thing' => 3 
+      * }
+      */
       failures.forEach((failedTest, index) => {
         if (!failedTest.context) {
           failuresToIndex.set(failedTest.title, index);
@@ -54,8 +61,8 @@ function ELKReporter(runner) {
       if (failuresToIndex.size) {
         tests.forEach(test => {
           if (failuresToIndex.has(test.title)) {
-            const failureIndexToReplace = failuresToIndex.get(test.title);
-            failures[failureIndexToReplace] = test;
+            const indexToReplace = failuresToIndex.get(test.title);
+            failures[indexToReplace] = test;
           }
         });
       }
