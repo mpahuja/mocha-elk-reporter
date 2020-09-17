@@ -41,17 +41,45 @@ function ELKReporter(runner) {
   });
 
   runner.on('end', function() {
-    // Add context body from test in tests to failures
-    if (failures.length) {
-      let failuresToIndex = new Map();
-
       /*
-      * Map failed test to its index in failures e.g. failuresToIndex will look like this 
+      * When Cypress passes, it provides a test instance to add context using mochawesome/addContext.
+      * But when Cypress test fails, it does not provide test instance to add context.
+      * However it provides test instance when that specific test finishes.
+      * So to add context on test failure, replace test objects in 'failures' array with its equivalent object from 'tests' array.
+      * 
+      * 1. Iterate over failures array. Push failed tests with no context in a map by mapping title to test's index in failures array.
+      * 2. Iterate over tests array, if map has that test title, replace the test object in failures with its equivalent in tests array.
+      *
+      * e.g. tests array - 
+      * [
+      *   Test { title: '[uuid:cy-template-00001], should do first thing', state: 'passed', context: {title: 'some string', value: {shopperId: '1111'}}, .....},
+      *   Test { title: '[uuid:cy-template-00002], should do second thing', state: 'failed', context: {title: 'some string', value: {shopperId: '1111'}}, .....},
+      *   Test { title: '[uuid:cy-template-00003], should do third thing', state: 'passed', context: {title: 'some string', value: {shopperId: '1111'}}, .....},
+      *   Test { title: '[uuid:cy-template-00004], should do fourth thing', state: 'failed', context: {title: 'some string', value: {shopperId: '1111'}}, .....}
+      * ]
+      * 
+      * e.g. failures array - 
+      * Note: it does not have context property on it, but rest of the properties are same as above
+      * [
+      *   {title: '[uuid:cy-template-00002], should do second thing', .....},
+      *   {title: '[uuid:cy-template-00004], should do fourth thing', .....},
+      * ]
+      * 
+      * e.g. failuresToIndex map -
       * { 
-      *  '[uuid:cy-template-00002], should do first thing' => 2 
-      *  '[uuid:cy-template-00005], should do second thing' => 3 
+      *  '[uuid:cy-template-00002], should do second thing' => 2,
+      *  '[uuid:cy-template-00004], should do fourth thing' => 3 
+      * }
+      * 
+      * e.g. after replacing test objects, failures array -
+      * { 
+      *   Test { title: '[uuid:cy-template-00002], should do second thing', state: 'failed', context: {title: 'some string', value: {shopperId: '1111'}}, .....},
+      *   Test { title: '[uuid:cy-template-00004], should do fourth thing', state: 'failed', context: {title: 'some string', value: {shopperId: '1111'}}, .....}
       * }
       */
+    if (failures.length) {
+     let failuresToIndex = new Map();
+
       failures.forEach((failedTest, index) => {
         if (!failedTest.context) {
           failuresToIndex.set(failedTest.title, index);
