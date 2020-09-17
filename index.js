@@ -41,6 +41,26 @@ function ELKReporter(runner) {
   });
 
   runner.on('end', function() {
+    // Add context body from test in tests to failures
+    if (failures.length) {
+      let failuresToIndex = new Map();
+      
+      failures.forEach((failedTest, index) => {
+        if (!failedTest.context) {
+          failuresToIndex.set(failedTest.title, index);
+        }
+      });
+
+      if (failuresToIndex.size) {
+        tests.forEach(test => {
+          if (failuresToIndex.has(test.title)) {
+            const failureIndexToReplace = failuresToIndex.get(test.title);
+            failures[failureIndexToReplace] = test;
+          }
+        });
+      }
+    }
+
     var obj = {
       stats: self.stats,
       tests: tests.map(clean),
