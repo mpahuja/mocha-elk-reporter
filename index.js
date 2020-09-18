@@ -41,6 +41,25 @@ function ELKReporter(runner) {
   });
 
   runner.on('end', function() {
+    if (failures.length) {
+     let failuresToIndex = new Map();
+
+      failures.forEach((failedTest, index) => {
+        if (!failedTest.context) {
+          failuresToIndex.set(failedTest.title, index);
+        }
+      });
+
+      if (failuresToIndex.size) {
+        tests.forEach(test => {
+          if (failuresToIndex.has(test.title)) {
+            const indexToReplace = failuresToIndex.get(test.title);
+            failures[indexToReplace] = test;
+          }
+        });
+      }
+    }
+
     var obj = {
       stats: self.stats,
       tests: tests.map(clean),
