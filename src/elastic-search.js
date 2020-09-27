@@ -1,4 +1,4 @@
-var elasticsearch = require('elasticsearch');
+var elasticsearch = require('@elastic/elasticsearch');
 var defaultConfig = require('../config');
 var async = require('async');
 var fetchParams = require('./config-utility').fetchParams;
@@ -13,10 +13,8 @@ module.exports = function sendTestResults(testResultsLog, done) {
 
     var repoConfig = fetchParams();
     var extraParams = getExtraParams(repoConfig);
-    var elasticsearchUsername = extraParams.elasticsearchUsername
-    var elasticsearchPassword = extraParams.elasticsearchPassword
-    delete extraParams.elasticsearchUsername
-    delete extraParams.elasticsearchPassword
+    var elasticsearchApiKey = extraParams.elasticsearchApiKey
+    delete extraParams.elasticsearchApiKey
 
     if (!checkForRequiredParams(repoConfig)) {
       throw new HighSeverityError("All Required Params not present in repoConfig file. The required params are: "
@@ -107,16 +105,16 @@ module.exports = function sendTestResults(testResultsLog, done) {
     }
 
     var hostname = repoConfig.elasticSearchHost
-    if (!!elasticsearchUsername === true || !!elasticsearchPassword === true) {
-      auth = `${elasticsearchUsername}:${elasticsearchPassword}@`
-      // Override any username:password in the elasticSearchHost param
-      hostname = `${auth}${hostname}`
-    }
 
     var esClient = elasticsearch.Client({
-      host: hostname,
       log: currentLogLevel,
-      requestTimeout: currentTimeout
+      requestTimeout: currentTimeout,
+      node: hostname,
+      auth: {
+        apiKey: {
+          api_key: elasticsearchApiKey
+        }
+      }
     });
 
     async.each(resultsArray, function (data, callback) {
