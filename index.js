@@ -94,7 +94,7 @@ function ELKReporter(runner) {
  * @param {Object} passes
  */
 function addRetryFailures(failures, passes) {
-  let prevAttempts;
+  let prevAttempts = [];
   
   failures.forEach(test => {
     if (test.prevAttempts && test.prevAttempts.length) {
@@ -104,11 +104,13 @@ function addRetryFailures(failures, passes) {
   
   passes.forEach(test => {
     if (test.prevAttempts && test.prevAttempts.length) {
-      prevAttempts = [...prevAttempts, ...test.prevAttempts];
+      prevAttempts = [...prevAttempts, ...test.prevAttempts]
     }
   });
   
-  failures.push(...prevAttempts);
+  if (prevAttempts.length) {
+    failures.push(...prevAttempts);
+  }
 }
 
 /**
