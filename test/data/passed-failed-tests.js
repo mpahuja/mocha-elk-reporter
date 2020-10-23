@@ -1,4 +1,4 @@
-let passedTests = [
+const passedTests = [
   {
     status: 'passed',
     title: '[uuid:template-test-00001] Passed Test data from reporter',
@@ -39,7 +39,7 @@ let passedTests = [
   }
 ];
 
-let failedTests = [
+const failedTests = [
   {
     status: 'Failed',
     title: '[uuid:template-test-00002] Failed Test data from reporter',

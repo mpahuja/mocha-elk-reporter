@@ -2,7 +2,7 @@
 
 const assert = require('assert');
 const rewire = require('rewire');
-let {passedTests, failedTests} = require('./data/passed-failed-tests');
+const {passedTests, failedTests} = require('./data/passed-failed-tests');
 const elkReporter = rewire('./../index.js');
 
 describe('ELK Reporter Tests: ', () => {
