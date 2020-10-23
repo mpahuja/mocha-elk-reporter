@@ -15,25 +15,32 @@ describe('ELK Reporter Tests: ', () => {
       failures = [...failedTests];
     });
 
-    it('should add all previous attempts to failures from failed and passed tests', () => {
+    it('should add all previous attempts from failed and passed tests', () => {
       addRetryFailures(failures, passes);
-      assert(failures.length === 5, 'Previous attempts not added to failures');
-      assert(passes.length === 1, 'Previous attempts added to passes');
+      assert(failures.length === 5);
+      assert(passes.length === 1);
     });
-  
-    it('should not add previous attempts to failures if test passed in a single attempt', () => {
+
+    it('should only add previous attempts from passed tests', () => {
+      failures = [];
+      addRetryFailures(failures, passes);
+      assert(failures.length === 2);
+      assert(passes.length === 1);
+    });
+
+    it('should only add previous attempts from failed tests', () => {
+      passes = [];
+      addRetryFailures(failures, passes);
+      assert(failures.length === 3);
+      assert(passes.length === 0);
+    });
+
+    it('should not add previous attempts if test passed in single attempt', () => {
       failures = [];
       passes[0].prevAttempts = [];
       addRetryFailures(failures, passes);
-      assert(failures.length === 0, 'Previous attempts added to failures');
-      assert(passes.length === 1, 'Previous attempts added to passes');
-    });
-
-    it('should only add previous attempts from failures to failures if all tests failed', () => {
-      passes = [];
-      addRetryFailures(failures, passes);
-      assert(failures.length === 3, 'Previous attempts added to failures');
-      assert(passes.length === 0, 'Previous attempts added to passes');
+      assert(failures.length === 0);
+      assert(passes.length === 1);
     });
   })
 });
