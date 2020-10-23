@@ -84,6 +84,8 @@ function ELKReporter(runner) {
   });
 }
 
+// comment
+
 /**
  * Return a plain-object representation of `test`
  * free of cyclic properties etc.
