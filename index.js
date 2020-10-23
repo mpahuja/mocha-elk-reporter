@@ -98,13 +98,13 @@ function addRetryFailures(failures, passes) {
   
   failures.forEach(test => {
     if (test.prevAttempts && test.prevAttempts.length) {
-      prevAttempts = [...test.prevAttempts];
+      prevAttempts.push(...test.prevAttempts);
     }
   });
   
   passes.forEach(test => {
     if (test.prevAttempts && test.prevAttempts.length) {
-      prevAttempts = [...prevAttempts, ...test.prevAttempts]
+      prevAttempts.push(...test.prevAttempts);
     }
   });
   
