@@ -34,6 +34,7 @@ describe('ELK Reporter Tests: ', () => {
       assert(failures.length === 3);
       assert(passes.length === 0);
     });
+    // comment
 
     it('should not add previous attempts if test passed in single attempt', () => {
       failures = [];
