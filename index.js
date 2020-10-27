@@ -60,6 +60,9 @@ function ELKReporter(runner) {
       }
     }
 
+    // add failed retry attempts to failures array
+    addRetryFailures(failures, passes);
+
     var obj = {
       stats: self.stats,
       tests: tests.map(clean),
@@ -82,6 +85,32 @@ function ELKReporter(runner) {
       }
     });
   });
+}
+
+/**
+ * Adds previously failed retry attempts to failures
+ * 
+ * @param {Object} failures
+ * @param {Object} passes
+ */
+function addRetryFailures(failures, passes) {
+  let prevAttempts = [];
+  
+  failures.forEach(test => {
+    if (test.prevAttempts && test.prevAttempts.length) {
+      prevAttempts.push(...test.prevAttempts);
+    }
+  });
+  
+  passes.forEach(test => {
+    if (test.prevAttempts && test.prevAttempts.length) {
+      prevAttempts.push(...test.prevAttempts);
+    }
+  });
+  
+  if (prevAttempts.length) {
+    failures.push(...prevAttempts);
+  }
 }
 
 /**
