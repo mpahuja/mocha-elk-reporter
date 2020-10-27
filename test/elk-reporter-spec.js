@@ -1,14 +1,12 @@
 'use strict';
 
 const assert = require('assert');
-const rewire = require('rewire');
 const {passedTests, failedTests} = require('./data/passed-failed-tests');
-const elkReporter = rewire('./../index.js');
+const addRetryFailures = require('./../index.js').addRetryFailures;
 
 describe('ELK Reporter Tests: ', () => {
   describe('AddRetryFailures: ', () => {
     let passes, failures;
-    const addRetryFailures = elkReporter.__get__('addRetryFailures');
 
     beforeEach(() => {
       passes = [...passedTests];

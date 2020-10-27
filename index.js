@@ -1,7 +1,7 @@
 var Base = require("mocha").reporters.Base;
 var postTestData = require('./src/elastic-search');
 
-exports = module.exports = ELKReporter;
+exports = module.exports = ELKReporter, addRetryFailures;
 
 /**
  * Initialize a new `ELK` reporter.
@@ -144,4 +144,9 @@ function errorJSON(err) {
     res[key] = err[key];
   }, err);
   return res;
+}
+
+module.exports = {
+  ELKReporter,
+  addRetryFailures
 }
