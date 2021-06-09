@@ -87,7 +87,6 @@ const failedTestWithMissingProps = [
   {
     status: 'Failed',
     title: '[uuid:template-test-00003] Failed Test data from reporter',
-    // fullTitle: 'Unit Test - [uuid:template-test-00003] Failed Test data from reporter',
     fullTitle: function() {
       return this.titlePath().join(' ');
     },
