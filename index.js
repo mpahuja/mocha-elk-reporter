@@ -97,7 +97,7 @@ function addRetryFailures(failures, passes) {
   let prevAttempts = [];
 
   // when test fails in all attempts
-  failures.forEach((failure) => {
+  failures.forEach(failure => {
     if (failure.prevAttempts && failure.prevAttempts.length) {
         failure.prevAttempts.forEach(failedTestAttempt => {
           if (!failedTestAttempt.fullTitle) {
