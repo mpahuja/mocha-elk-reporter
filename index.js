@@ -101,7 +101,6 @@ function addRetryFailures(failures, passes) {
     if (failure.prevAttempts && failure.prevAttempts.length) {
         failure.prevAttempts.forEach(failedTestAttempt => {
           if (!failedTestAttempt.fullTitle) {
-            console.log('Sending from failures')
             addRequiredProps(failedTestAttempt, failure, prevAttempts)
           } else {
             prevAttempts.push(failedTestAttempt);
@@ -115,7 +114,6 @@ function addRetryFailures(failures, passes) {
     if (passedTest.prevAttempts && passedTest.prevAttempts.length) {
       passedTest.prevAttempts.forEach(failedTestAttempt => {
         if (!failedTestAttempt.fullTitle) {
-          console.log('Sending from passes')
           addRequiredProps(failedTestAttempt, passedTest, prevAttempts)
         } else {
           prevAttempts.push(failedTestAttempt);
@@ -137,11 +135,11 @@ function addRetryFailures(failures, passes) {
  * @param {Array} prevAttempts - array to insert all previous failures
  */
 function addRequiredProps(failedAttempt, parentTestInstance, prevAttempts) {
+  failedAttempt.context = parentTestInstance.context;
   failedAttempt.duration = parentTestInstance.duration;
+  failedAttempt.fullTitle = parentTestInstance.fullTitle;
   failedAttempt.parent = parentTestInstance.parent;
   failedAttempt.title = parentTestInstance.title;
-  failedAttempt.context = parentTestInstance.context;
-  failedAttempt.fullTitle = parentTestInstance.fullTitle;
   failedAttempt.titlePath = parentTestInstance.titlePath;
   prevAttempts.push(failedAttempt);
 }
