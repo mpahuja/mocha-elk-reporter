@@ -136,7 +136,6 @@ function addRetryFailures(failures, passes) {
  */
 function addRequiredProps(failedAttempt, parentTestInstance, prevAttempts) {
   failedAttempt.context = parentTestInstance.context;
-  failedAttempt.duration = parentTestInstance.duration;
   failedAttempt.fullTitle = parentTestInstance.fullTitle;
   failedAttempt.parent = parentTestInstance.parent;
   failedAttempt.title = parentTestInstance.title;

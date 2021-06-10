@@ -55,7 +55,6 @@ describe('ELK Reporter Tests: ', () => {
       assert(failures.length === 5);
       assert(passes.length === 1);
       assert(failures[0].context !== undefined);
-      assert(failures[1].duration !== undefined);
       assert(failures[2].fullTitle !== undefined);
       assert(failures[3].parent !== undefined);
       assert(failures[4].title !== undefined);

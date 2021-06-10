@@ -2,7 +2,25 @@ const passedTests = [
   {
     status: 'passed',
     title: '[uuid:template-test-00001] Passed Test data from reporter',
-    fullTitle: 'Unit Test - [uuid:template-test-00001] Passed Test data from reporter',
+    fullTitle: function() {
+      return this.titlePath().join(' ');
+    },
+    titlePath: function() {
+      return this.parent.titlePath().concat([this.title]);
+    },
+    parent : {
+      title: 'Describe block title',
+      titlePath: function() {
+        var result = [];
+        if (this.parent) {
+          result = result.concat(this.parent.titlePath());
+        }
+        if (!this.root) {
+          result.push(this.title);
+        }
+        return result;
+      }
+    },
     duration: 8673,
     err: {},
     platform: 'chromeEmulator',
@@ -11,9 +29,6 @@ const passedTests = [
     prevAttempts: [
       {
         status: 'Failed',
-        title: '[uuid:template-test-00001] Failed Test data from reporter',
-        fullTitle: 'Unit Test - [uuid:template-test-00001] Failed Test data from reporter',
-        duration: 8673,
         err: {
           stack: 'Sample Failed stack',
           message: 'Sample failed message'
@@ -24,9 +39,6 @@ const passedTests = [
       },
       {
         status: 'Failed',
-        title: '[uuid:template-test-00001] Failed Test data from reporter',
-        fullTitle: 'Unit Test - [uuid:template-test-00001] Failed Test data from reporter',
-        duration: 8673,
         err: {
           stack: 'Sample Failed stack',
           message: 'Sample failed message'
@@ -43,7 +55,25 @@ const failedTests = [
   {
     status: 'Failed',
     title: '[uuid:template-test-00002] Failed Test data from reporter',
-    fullTitle: 'Unit Test - [uuid:template-test-00002] Failed Test data from reporter',
+    fullTitle: function() {
+      return this.titlePath().join(' ');
+    },
+    titlePath: function() {
+      return this.parent.titlePath().concat([this.title]);
+    },
+    parent : {
+      title: 'Describe block title',
+      titlePath: function() {
+        var result = [];
+        if (this.parent) {
+          result = result.concat(this.parent.titlePath());
+        }
+        if (!this.root) {
+          result.push(this.title);
+        }
+        return result;
+      }
+    },
     duration: 8673,
     err: {
       stack: 'Sample Failed stack',
@@ -55,9 +85,6 @@ const failedTests = [
     prevAttempts: [
       {
         status: 'Failed',
-        title: '[uuid:template-test-00002] Failed Test data from reporter',
-        fullTitle: 'Unit Test - [uuid:template-test-00002] Failed Test data from reporter',
-        duration: 8673,
         err: {
           stack: 'Sample Failed stack',
           message: 'Sample failed message'
@@ -68,9 +95,6 @@ const failedTests = [
       },
       {
         status: 'Failed',
-        title: '[uuid:template-test-00002] Failed Test data from reporter',
-        fullTitle: 'Unit Test - [uuid:template-test-00002] Failed Test data from reporter',
-        duration: 8673,
         err: {
           stack: 'Sample Failed stack',
           message: 'Sample failed message'
