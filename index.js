@@ -61,7 +61,6 @@ function ELKReporter(runner) {
     }
 
     // add failed retry attempts to failures array
-    
     addRetryFailures(failures, passes);
 
     var obj = {
