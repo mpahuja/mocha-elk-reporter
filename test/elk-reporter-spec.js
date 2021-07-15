@@ -2,7 +2,12 @@
 
 const assert = require('assert');
 const rewire = require('rewire');
-const {passedTests, failedTests} = require('./data/passed-failed-tests');
+const {
+  passedTests, 
+  failedTests,
+  failedTestWithMissingProps,
+  passedTestsWithMissingProps
+} = require('./data/passed-failed-tests');
 const elkReporter = rewire('./../index.js');
 
 describe('ELK Reporter Tests: ', () => {
@@ -42,5 +47,17 @@ describe('ELK Reporter Tests: ', () => {
       assert(failures.length === 0);
       assert(passes.length === 1);
     });
+
+    it('should add missing properties', () => {
+      passes = [...passedTestsWithMissingProps];
+      failures = [...failedTestWithMissingProps];
+      addRetryFailures(failures, passes);
+      assert(failures.length === 5);
+      assert(passes.length === 1);
+      assert(failures[0].context !== undefined);
+      assert(failures[2].fullTitle !== undefined);
+      assert(failures[3].parent !== undefined);
+      assert(failures[4].title !== undefined);
+    })
   })
 });

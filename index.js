@@ -95,22 +95,52 @@ function ELKReporter(runner) {
  */
 function addRetryFailures(failures, passes) {
   let prevAttempts = [];
-  
-  failures.forEach(test => {
-    if (test.prevAttempts && test.prevAttempts.length) {
-      prevAttempts.push(...test.prevAttempts);
+
+  // when test fails in all attempts
+  failures.forEach(failure => {
+    if (failure.prevAttempts && failure.prevAttempts.length) {
+        failure.prevAttempts.forEach(failedTestAttempt => {
+          if (!failedTestAttempt.fullTitle) {
+            addRequiredProps(failedTestAttempt, failure, prevAttempts)
+          } else {
+            prevAttempts.push(failedTestAttempt);
+          }
+        })
     }
   });
   
-  passes.forEach(test => {
-    if (test.prevAttempts && test.prevAttempts.length) {
-      prevAttempts.push(...test.prevAttempts);
+  // when test passes but has failed attempts
+  passes.forEach(passedTest => {
+    if (passedTest.prevAttempts && passedTest.prevAttempts.length) {
+      passedTest.prevAttempts.forEach(failedTestAttempt => {
+        if (!failedTestAttempt.fullTitle) {
+          addRequiredProps(failedTestAttempt, passedTest, prevAttempts)
+        } else {
+          prevAttempts.push(failedTestAttempt);
+        }
+      })
     }
   });
   
   if (prevAttempts.length) {
     failures.push(...prevAttempts);
   }
+}
+
+/**
+ * Adds required properties from parent test instance to previously failed attempt
+ * 
+ * @param {Object} testAttempt - test instance from prevAttempts
+ * @param {Object} parentTestInstance - parent test instance with property prevAttempts
+ * @param {Array} prevAttempts - array to insert all previous failures
+ */
+function addRequiredProps(failedAttempt, parentTestInstance, prevAttempts) {
+  failedAttempt.context = parentTestInstance.context;
+  failedAttempt.fullTitle = parentTestInstance.fullTitle;
+  failedAttempt.parent = parentTestInstance.parent;
+  failedAttempt.title = parentTestInstance.title;
+  failedAttempt.titlePath = parentTestInstance.titlePath;
+  prevAttempts.push(failedAttempt);
 }
 
 /**
