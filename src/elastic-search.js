@@ -39,6 +39,15 @@ module.exports = function sendTestResults(testResultsLog, done) {
           contextValues = passedTestData[arrayLength].context.value;
         }
       }
+      
+      if (passedTestData[arrayLength].err !== undefined) {
+        var err = passedTestData[arrayLength].err;
+        passedTestData[arrayLength].err = {
+          message: err.message,
+          stack: err.stack,
+          code: err.code
+        };
+      }
 
       resultsArray.push({
         "application_name": repoConfig.applicationName,
@@ -63,6 +72,15 @@ module.exports = function sendTestResults(testResultsLog, done) {
         if (failedTestData[arrayLength].context.value !== undefined) {
           contextValues = failedTestData[arrayLength].context.value;
         }
+      }
+      
+      if (failedTestData[arrayLength].err !== undefined) {
+        var err = failedTestData[arrayLength].err;
+        failedTestData[arrayLength].err = {
+          message: err.message,
+          stack: err.stack,
+          code: err.code
+        };
       }
 
       resultsArray.push({
