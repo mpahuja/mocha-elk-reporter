@@ -40,15 +40,6 @@ module.exports = function sendTestResults(testResultsLog, done) {
         }
       }
       
-      if (passedTestData[arrayLength].err !== undefined) {
-        var err = passedTestData[arrayLength].err;
-        passedTestData[arrayLength].err = {
-          message: err.message,
-          stack: err.stack,
-          code: err.code
-        };
-      }
-
       resultsArray.push({
         "application_name": repoConfig.applicationName,
         "et": timestamp,
@@ -58,7 +49,7 @@ module.exports = function sendTestResults(testResultsLog, done) {
             title: passedTestData[arrayLength].title,
             fullTitle: passedTestData[arrayLength].fullTitle,
             duration: passedTestData[arrayLength].duration / 1000,
-            err: passedTestData[arrayLength].err,
+            err: {},
             uuid: passedTestData[arrayLength].title.match(uuidRegex)
           }, extraParams, contextValues)
       });
