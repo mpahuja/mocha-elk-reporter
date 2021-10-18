@@ -39,7 +39,7 @@ module.exports = function sendTestResults(testResultsLog, done) {
           contextValues = passedTestData[arrayLength].context.value;
         }
       }
-
+      
       resultsArray.push({
         "application_name": repoConfig.applicationName,
         "et": timestamp,
@@ -49,7 +49,7 @@ module.exports = function sendTestResults(testResultsLog, done) {
             title: passedTestData[arrayLength].title,
             fullTitle: passedTestData[arrayLength].fullTitle,
             duration: passedTestData[arrayLength].duration / 1000,
-            err: passedTestData[arrayLength].err,
+            err: {},
             uuid: passedTestData[arrayLength].title.match(uuidRegex)
           }, extraParams, contextValues)
       });
@@ -63,6 +63,15 @@ module.exports = function sendTestResults(testResultsLog, done) {
         if (failedTestData[arrayLength].context.value !== undefined) {
           contextValues = failedTestData[arrayLength].context.value;
         }
+      }
+      
+      if (failedTestData[arrayLength].err !== undefined) {
+        var err = failedTestData[arrayLength].err;
+        failedTestData[arrayLength].err = {
+          message: err.message,
+          stack: err.stack,
+          code: err.code
+        };
       }
 
       resultsArray.push({
