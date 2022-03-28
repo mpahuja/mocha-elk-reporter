@@ -9,15 +9,15 @@
   "author": "Manoj Pahuja",
   "license": "MIT",
   "dependencies": {
+    "@elastic/elasticsearch": "^8.1.0",
     "async": "^3.0.1-0",
-    "elasticsearch": "^16.0.0",
-    "mochawesome": "^5.0.0",
-    "rewire": "^5.0.0"
+    "mochawesome": "^7.1.2"
   },
   "peerDependencies": {
-    "mocha": ">=5.0.0 <9.0.0"
+    "mocha": "^9.2.2"
   },
   "devDependencies": {
-    "mocha": "^8.1.2"
+    "mocha": "^9.2.2",
+    "rewire": "^6.0.0"
   }
 }

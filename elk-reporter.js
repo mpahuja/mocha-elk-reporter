@@ -1,6 +1,6 @@
 module.exports = {
   applicationName: "your application name",
-  elasticSearchHost: "elk:9200",
+  elasticSearchHost: "http://elk:9200",
   elasticSearchIndex: "your-index-name",
   elasticSearchLogLevel: "trace",
   extraParams: {

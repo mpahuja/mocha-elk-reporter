@@ -1,4 +1,4 @@
-var elasticsearch = require('elasticsearch');
+var elasticsearch = require('@elastic/elasticsearch');
 var defaultConfig = require('../config');
 var async = require('async');
 var fetchParams = require('./config-utility').fetchParams;
@@ -122,8 +122,8 @@ module.exports = function sendTestResults(testResultsLog, done) {
       hostname = `${auth}${hostname}`
     }
 
-    var esClient = elasticsearch.Client({
-      host: hostname,
+    var esClient = new elasticsearch.Client({
+      node: hostname,
       log: currentLogLevel,
       requestTimeout: currentTimeout
     });
