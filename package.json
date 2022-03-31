@@ -1,6 +1,6 @@
 {
   "name": "mocha-elk-reporter",
-  "version": "3.0.0",
+  "version": "3.0.0-beta1",
   "description": "Reporter for pushing mocha test results data to ELK",
   "main": "index.js",
   "scripts": {
@@ -9,7 +9,7 @@
   "author": "Manoj Pahuja",
   "license": "MIT",
   "dependencies": {
-    "@elastic/elasticsearch": "^8.1.0",
+    "@elastic/elasticsearch": "^7.17.0",
     "async": "^3.0.1-0",
     "mochawesome": "^7.1.2"
   },
